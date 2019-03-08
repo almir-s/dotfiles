@@ -167,3 +167,51 @@ let g:signify_sign_change = '⨸'
 let g:signify_sign_changedelete = '⨂'
 " }}}
 
+" Multiple Cursors {{{
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+  let g:deoplete#disable_auto_complete = 1
+endfunction
+function! Multiple_cursors_after()
+  let g:deoplete#disable_auto_complete = 0
+endfunction
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<c-i>'
+let g:multi_cursor_prev_key='<c-p>'
+let g:multi_cursor_skip_key='<c-x>'
+let g:multi_cursor_quit_key='<Esc>'
+" }}} 
+"
+" General mappings {{{
+inoremap ,, <esc>
+nnoremap <leader>h :h<cr>
+" }}}
+"
+"
+"" cursor movement windows {{{
+nnoremap <C-h> <C-W>h
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+nnoremap 0 g0
+nnoremap $ g$
+" }}}
+
+function! s:project_selector()
+  if !exists('g:cppproject#project_root')
+    let g:cppproject#project_root = getcwd()
+    execute "lcd " . g:cppproject#project_root
+  endif
+  execute "Files"
+endfunction
+
+command! SelectFiles call <sid>project_selector()
+
+" fzf-vim {{{
+nnoremap <silent> <leader>f :SelectFiles<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>c :Commands<CR>
+" }}}
