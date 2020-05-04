@@ -30,7 +30,7 @@ Plug 'schickling/vim-bufonly'
 
 " Plug 'mileszs/ack.vim'
 " Plug 'osyo-manga/vim-over'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
@@ -75,13 +75,16 @@ Plug 'Valloric/YouCompleteMe'
 " Plug 'maximbaz/lightline-ale'
 " Plug 'CharlesGueunet/VimFilify'
 
+Plug 'davidhalter/jedi-vim' "python autocompletion
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+ 
 
 
 call plug#end()
 
 
-" Basic Settings
-" Basic Settings 
+" Basic Settings {{{
 syntax on
 filetype plugin indent on
 let mapleader=' '       " leader is space 
@@ -103,7 +106,8 @@ set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 set wildignorecase
 set showtabline=2
-"
+set completeopt=longest,menuone
+" }}}
 
 " rainbow 
 let g:rainbow_active = 1
@@ -129,9 +133,14 @@ map g# <Plug>(incsearch-nohl-g#)
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_confirm_extra_conf = 0
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 1
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_use_clangd = 0
+" let g:ycm_clangd_args = ['-background-index']
+" " Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 "}}}
 "
@@ -184,7 +193,12 @@ let g:multi_cursor_quit_key='<Esc>'
 "
 " General mappings {{{
 inoremap ,, <esc>
-nnoremap <leader>h :h<cr>
+nnoremap <leader>h :hide<cr>
+" :command WQ wq
+" :command Wq wq
+" :command W w
+" :command Q q
+nnoremap <leader>m :Marks<CR>
 " }}}
 "
 "
@@ -215,3 +229,8 @@ nnoremap <silent> <leader>f :SelectFiles<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>c :Commands<CR>
 " }}}
+"
+"
+"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
