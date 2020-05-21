@@ -50,7 +50,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Plug 'semirpuskarevic/YCM-Generator', { 'branch': 'meson' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'develop' }
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'develop' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'vim-scripts/gtags.vim'
 " Plug 'jsfaint/gen_tags.vim'
 " Plug 'vhdirk/vim-cmake'
@@ -130,7 +131,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 1
 let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 "}}}
@@ -152,9 +153,11 @@ let g:clang_format#style_options = {
       \ "AccessModifierOffset" : -4,
       \ "AllowShortIfStatementsOnASingleLine" : "true",
       \ "AlwaysBreakTemplateDeclarations" : "true",
+      \ "SortIncludes" : "false",
       \ "Standard" : "C++11"}
 " map to <Leader>cf in C++ code
 let g:clang_format#command="clang-format"
+let g:ycm_clangd_args=['--header-insertion=never']
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " }}}
