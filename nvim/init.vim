@@ -76,6 +76,7 @@ Plug 'Valloric/YouCompleteMe'
 " Plug 'CharlesGueunet/VimFilify'
 
 Plug 'davidhalter/jedi-vim' "python autocompletion
+Plug 'maksimr/vim-jsbeautify'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
  
@@ -161,11 +162,16 @@ let g:clang_format#style_options = {
       \ "AccessModifierOffset" : -4,
       \ "AllowShortIfStatementsOnASingleLine" : "true",
       \ "AlwaysBreakTemplateDeclarations" : "true",
+			\ "SortIncludes" : "false",
       \ "Standard" : "C++11"}
+let g:ycm_clangd_args=['--header-insertion=never']
+autocmd BufWritePre *.h,*.hpp,*.hxx,*.c,*.cpp ClangFormat
 " map to <Leader>cf in C++ code
 let g:clang_format#command="clang-format"
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+
 " }}}
 " Signify {{{
 let g:signify_vcs_list = ['git']
@@ -234,3 +240,18 @@ nnoremap <silent> <leader>c :Commands<CR>
 "
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
